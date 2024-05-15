@@ -1,0 +1,43 @@
+# 1
+X = df[['Sales $m', 'Wages $m']]
+X = sm.add_constant(X)
+y = df['GrossProfit']
+
+model = sm.OLS(y, X).fit()
+print(model.summary())
+sns.pairplot(df[['GrossProfit', 'Sales $m', 'Wages $m']])
+plt.show()
+
+# 2
+corr_matrix = data_merged.corr()
+gross_profit_corr = corr_matrix['gross_profit_ratio']
+
+gross_profit_corr.plot(kind='bar')
+plt.show()
+
+
+plt.figure(figsize=(10,10))
+sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap='coolwarm', square=True)
+plt.show()
+
+# 3
+rf = RandomForestRegressor(random_state=42)
+rf.fit(data_predictors, data_merged['gross_profit_ratio'])
+importances = rf.feature_importances_
+feature_importances = pd.DataFrame({"Feature": data_predictors.columns, "Importance": importances})
+feature_importances = feature_importances.sort_values("Importance", ascending=False)
+print(feature_importances)
+
+plt.figure(figsize=(10, 8))
+feature_importances.sort_values("Importance", ascending=False).plot(kind='bar', x='Feature', y='Importance')
+plt.xlabel('Importance')
+plt.title('Feature Importance')
+plt.show()
+
+# 4
+plt.figure(figsize=(10, 8))
+plt.bar(feature_importances['Feature'], feature_importances['Importance'], color='skyblue')
+plt.ylabel('Importance')
+plt.title('Feature')
+plt.xticks(rotation=90)
+plt.show()
