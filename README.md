@@ -99,6 +99,8 @@ feature_importances = pd.DataFrame({"Feature": data_predictors.columns, "Importa
 feature_importances = feature_importances.sort_values("Importance", ascending=False)
 print(feature_importances)
 
+# algorithm here.
+
 X = data_merged.drop('gross_profit_ratio', axis=1)
 y = data_merged['gross_profit_ratio']
 
