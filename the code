@@ -14,8 +14,6 @@ X = df[['Sales $m', 'Wages $m']]
 X = sm.add_constant(X)
 y = df['GrossProfit']
 
-# algorithm here.
-
 df['Basket'] = (df['Basket:2013'] + df['Basket:2014']) / 2
 df['WagePerStaff'] = df['Wages $m'] / df['No. Staff']
 df['gross_profit_ratio'] = df['GrossProfit'] / df['Sales $m']
